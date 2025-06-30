@@ -24,7 +24,7 @@ class AuthController extends Controller
         if (Auth::attempt($valid)) {
             $user = Auth::user();
             if ($user->status === 1) {
-                return redirect(route('dashboard'))
+                return redirect(route('Auth.dashboard'))
                     ->with('success', 'Welcome back')
                     ->with(compact('user'));
             }
@@ -39,6 +39,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        return redirect(route('login'));
+        return redirect(route('Auth.show'))
+            ->with('success', 'Has cerrado sesión correctamente.');
     }
 }

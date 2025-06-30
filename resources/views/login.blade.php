@@ -15,26 +15,27 @@
 
 <body>
     <div class="flex items-center justify-center min-h-screen bg-gradient-to-r from-celeste to-white">
-        <div class="bg-orange-200 p-6 w-full max-w-md rounded-lg shadow">
+        <div class="bg-neutral p-6 w-full max-w-md rounded-lg shadow">
 
             <div class="mt-8">
-                <h2 class="text-2xl font-bold text-amber-900">Login</h2>
-                <p class="text-sm text-black py-4">Por favor ingrese sus credenciales correctamente</p>
+                <h2 class="text-2xl font-bold text-white">Login</h2>
+                <p class="text-sm text-white py-4">Por favor ingrese sus credenciales correctamente</p>
             </div>
             <div class="form mt-4">
                 <form action="{{ route('Auth.login') }}" method="POST">
                     @csrf
                     <div class="mb-4">
-                        <label for="username" class="block text-sm font-semibold mb-2 text-black"><i
+                        <label for="username" class="block text-xl font-semibold mb-2 text-white"><i
                                 class="fa-solid fa-user-cowboy"></i> username</label>
-                        <input type="username" name="username" id="username"
-                            class="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                        <input type="text" name="username" id="username"
+                            class="border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none"
                             required>
                     </div>
                     <div class="mb-4">
-                        <label for="password" class="block text-sm font-semibold mb-2 text-black">Password</label>
+                        <label for="password" class="block text-xl font-semibold mb-2 text-white">
+                            <i class="fa-solid fa-key-skeleton"></i> Password</label>
                         <input type="password" name="password" id="password"
-                            class="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                            class="border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none"
                             required>
                     </div>
 

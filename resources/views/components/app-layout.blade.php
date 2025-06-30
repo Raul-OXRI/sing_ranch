@@ -33,9 +33,13 @@
                 </div>
             </div>
             <div class="navbar-center">
-                <a class="btn btn-ghost text-xl" href="#">Finca el suspiro</a>
+                <a class="btn btn-ghost text-xl" href="{{ route('Auth.dashboard') }}">Finca el suspiro</a>
             </div>
             <div class="navbar-end">
+                <ul class="dropdown-content">
+                    <li><a href="{{ route('Auth.logout') }}" class="btn btn-circle"><i
+                            class="fa-light fa-arrow-right-from-bracket"></i></a></li>
+                </ul>
             </div>
         </div>
     </header>
@@ -50,17 +54,17 @@
 
     <footer
         class="footer flex flex-col items-center bg-neutral text-neutral-content p-1 sm:footer sm:footer-horizontal sm:bg-neutral sm:text-neutral-content">
-        <aside class="flex justify-center sm:ps-60">
+        <aside class="flex justify-center sm:ps-40">
             <figure>
                 <img src="{{ asset('img/sing_ranch_white.png') }}" alt="imagen de icono"
-                    class="w-25 h-25 sm:w-60 sm:h-60">
+                    class="w-30 h-30 sm:w-60 sm:h-60">
             </figure>
         </aside>
         <nav class="text-center sm:mt-9">
             <h6 class="text-xl font-bold mb-2 sm:text-xl font-bold">Contacto</h6>
             <div class="flex justify-center sm:grid sm:grid-flow-col sm:gap-4">
                 <a href="https://github.com/Raul-OXRI" target="_blank">
-                    <i class="fa-brands fa-square-github fa-4x sm:fa-3x"></i>
+                    <i class="fa-brands fa-square-github fa-3x sm:fa-4x"></i>
                 </a>
             </div>
         </nav>
