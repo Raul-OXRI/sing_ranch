@@ -15,6 +15,7 @@ return new class extends Migration
             //new column's
             $table->string('last_name')->nullable()->after('name');
             $table->string('username')->unique()->after('last_name');
+            $table->integer('status')->default(1)->after('username');
         });
     }
 
