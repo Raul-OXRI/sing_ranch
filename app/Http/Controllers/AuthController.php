@@ -29,11 +29,11 @@ class AuthController extends Controller
                     ->with(compact('user'));
             }
             Auth::logout();
-            return redirect(route('login'))
+            return redirect(route('Auth.show'))
                 ->with('auth', 'Tu cuenta esta inactiva. Contacta al administrador...');
         }
 
-        return redirect('login')
+        return redirect(route('Auth.show'))
             ->with(['auth' => 'Credenciales incorrectas. Intente de nuevo...']);
     }
     public function logout(Request $request)
