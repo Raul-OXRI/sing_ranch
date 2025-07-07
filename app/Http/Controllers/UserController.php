@@ -15,7 +15,10 @@ class UserController extends Controller
         $users = User::where('status', 1)
             ->orderBy('created_at', 'desc')
             ->get();
-        return view('User.all-user', compact('users'));
+        $inactiveUsers = User::where('status', 2)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('User.all-user', compact('users', 'inactiveUsers'));
     }
 
     public function create()
@@ -58,5 +61,18 @@ class UserController extends Controller
 
         $user->update($date);
         return redirect(route('User.show'))->with('success', 'Usuario actualizado con exito');
+    }
+
+    public function switch(User $user)
+    {
+        $user->status = 2;
+        $user->save();
+        return redirect(route('User.show'))->with('success', 'Usuario eliminado con exito');
+    }
+    public function restore(User $user)
+    {
+        $user->status = 1;
+        $user->save();
+        return redirect(route('User.show'))->with('success', 'Usuario restaurado con exito');
     }
 }
