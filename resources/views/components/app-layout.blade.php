@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="retro">
+<html lang="en" data-theme="sossin">
 
 <head>
     <meta charset="UTF-8">
@@ -27,7 +27,7 @@
                     <ul tabindex="0"
                         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                         <li><a href="{{ route('User.show') }}"><i class="fa-solid fa-user"></i> Usuarios</a></li>
-                        <li><a href="#"><i class="fas fa-route mr-2"></i> Rutas</a></li>
+                        <li><a href="{{ route('Cows.show') }}"><i class="fa-solid fa-skull-cow"></i> Bovinos</a></li>
                         <li><a href="#"><i class="fa-solid fa-landmark"></i> Clases</a></li>
                     </ul>
                 </div>
