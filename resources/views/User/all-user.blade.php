@@ -3,11 +3,11 @@
 
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div class="flex items-center gap-4">
-            <div class="bg-blue-100 p-3 rounded-full">
-                <i class="fa-solid fa-users text-blue-600 text-xl"></i>
+            <div class="bg-secondary p-3 rounded-full">
+                <i class="fa-solid fa-users bg-secondary text-xl"></i>
             </div>
             <div>
-                <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Gestión de Usuarios</h1>
+                <h1 class="text-2xl md:text-3xl font-bold text-secondary">Gestión de Usuarios</h1>
             </div>
         </div>
         <div class="flex gap-3">
