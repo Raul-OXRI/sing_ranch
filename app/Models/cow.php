@@ -11,7 +11,6 @@ class cow extends Model
     protected $fillable = [
         'animal_code',
         'entry_date',
-        'birth_date',
         'sexo',
         'cod_user',
         'status'
@@ -37,5 +36,10 @@ class cow extends Model
     public function getFullDescriptionAttribute()
     {
         return "{$this->animal_code} is a {$this->sexo} cow, born on {$this->birth_date}, entered on {$this->entry_date}.";
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'cod_user');
     }
 }

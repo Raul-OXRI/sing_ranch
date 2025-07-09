@@ -7,27 +7,9 @@
             class="mt-1 w-1/2 rounded-md  shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-3 py-2" />
     </div>
 
-    <div class="collapse ">
-        <input type="checkbox" checked="checked" class="toggle collapse-title" />
-
-        <div class="collapse-content">
-            <label for="entry_date" class="text-sm font-medium w-1/2">Fecha de entrada:</label>
-            <input type="date" name="entry_date" value="{{ old('entry_date', $cow->entry_date ?? '') }}"
-                id="entry_date"
-                class="mt-1 w-1/2 rounded-md  shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-3 py-2" />
-        </div>
-    </div>
-
-    {{-- <div class="mb-4">
-        <label for="entry_date" class="text-sm font-medium w-1/2">Fecha de entrada:</label>
-        <input type="date" name="entry_date" value="{{ old('entry_date', $cow->entry_date ?? '') }}" id="entry_date"
-            class="mt-1 w-1/2 rounded-md  shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-3 py-2" />
-    </div> --}}
-
-
     <div class="mb-4">
-        <label for="birth_date" class="text-sm font-medium w-1/2">Fecha de nacimiento:</label>
-        <input type="date" name="birth_date" value="{{ old('birth_date', $cow->birth_date ?? '') }}" id="birth_date"
+        <label for="entry_date" class="text-sm font-medium w-1/2">Fecha de entrada:</label>
+        <input type="date" name="entry_date" value="{{ old('entry_date', $cow->entry_date ?? '') }}" id="entry_date" required
             class="mt-1 w-1/2 rounded-md  shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-3 py-2" />
     </div>
     <div class="mb-4">
@@ -39,11 +21,12 @@
         </select>
     </div>
     <div class="mb-4">
-        <label for="cod_user" class="text-sm font-medium w-1/2">Usuario:</label>
+        <label for="cod_user" class="text-sm font-medium w-1/2">Propietario:</label>
         <select name="cod_user" id="cod_user"
             class="mt-1 w-1/2 mt-1 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-3 py-2"
             required>
-            <option value="{{ old('cod_user', $cow->cod_user ?? '') }}" class="disabled selected">Seleccione un usuario
+            <option value="{{ old('cod_user', $cow->cod_user ?? '') }}" class="disabled selected">Seleccione un
+                propietario
             </option>
             @foreach ($users as $user)
                 <option value="{{ $user->id }}"

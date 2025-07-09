@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cows', function (Blueprint $table) {
+        Schema::create('calves_tables', function (Blueprint $table) {
             $table->id();
             $table->string('animal_code')->unique();
-            $table->date('entry_date');
+            $table->date('birth_date')->nullable();
             $table->enum('sexo', ['macho', 'hembra'])->default('macho');
             $table->string('status')->default(1);
             $table->foreignId('cod_user')->references('id')->on('users')->onDelete('no action');
+            $table->foreignId('cod_cow')->references('id')->on('cows')->onDelete('no action');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cows');
+        Schema::dropIfExists('calves_tables');
     }
 };

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="sossin">
+<html lang="en" data-theme="forest">
 
 <head>
     <meta charset="UTF-8">
