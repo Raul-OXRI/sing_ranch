@@ -14,7 +14,10 @@
             </button>
         </div>
     </div>
-    <x-app-modal-create modalId="create_cow_modal" title="Crear Bovino" formAction="{{ route('Cows.store') }}"
+    <x-app-modal-create 
+        modalId="create_cow_modal" 
+        title="Crear Bovino" 
+        formAction="{{ route('Cows.store') }}"
         :form="view('Cows.cow-form', ['users' => $users])->render()" />
 
     <div class="tabs tabs-border my-8">
@@ -29,7 +32,7 @@
                     <th>Propietario</th>
                     <th>Acciones</th>
                 </tr>
-                @foreach ($cows as $cow)
+                @foreach ($allanimals as $cow)
                     <tr>
                         <td>{{ $cow->animal_code }}</td>
                         <td>{{ $cow->entry_date }}</td>
@@ -54,16 +57,25 @@
 
                             <div class="flex gap-2">
                                 <button class="btn btn-sm btn-success">
-                                    <i class="fa-regular fa-ballot-check"></i> Bitagan
+                                    <i class="fa-regular fa-ballot-check"></i> FincaHoy
                                 </button>
-
                             </div>
-
                             <div class="flex gap-2">
-                                <button class="btn btn-sm btn-info" onclick="document.getElementById('edit_cow_modal_{{ $cow->id }}').showModal()">
-                                    <i class="fa-solid fa-pen-to-square"></i> Agregar cría
-                                </button>
-
+                                @if ($cow->sexo == 'hembra')
+                                    <button class="btn btn-sm btn-info"
+                                        onclick="document.getElementById('create_calves_modal_{{ $cow->id }}').showModal()">
+                                        <i class="fa-solid fa-user-plus"></i> Agregar Cría
+                                    </button>
+                                    <x-app-modal-create
+                                        modalId="create_calves_modal_{{ $cow->id }}"
+                                        title="Crear Cría"
+                                        formAction="{{ route('Cows.storecalving') }}"
+                                        :form="view('Cows.calvin-form', [
+                                            'users' => $users,
+                                            'cow'   => $cow
+                                        ])->render()"
+                                    />
+                                @endif
                             </div>
                         </td>
                     </tr>
@@ -82,7 +94,7 @@
                     <th>Propietario</th>
                     <th>Acciones</th>
                 </tr>
-                @foreach ($inactiveCows as $cow)
+                @foreach ($allinactive as $cow)
                     <tr>
                         <td>{{ $cow->animal_code }}</td>
                         <td>{{ $cow->entry_date }}</td>
@@ -98,7 +110,7 @@
                             <div>
                                 <div class="flex gap-2">
                                     <button class="btn btn-sm btn-success">
-                                        <i class="fa-regular fa-ballot-check"></i> Bitagan
+                                        <i class="fa-regular fa-ballot-check"></i> FincaHoy
                                     </button>
 
                                 </div>
@@ -119,7 +131,7 @@
                     <th>Propietario</th>
                     <th>Acciones</th>
                 </tr>
-                @foreach ($deadCows as $cow)
+                @foreach ($alldead as $cow)
                     <tr>
                         <td>{{ $cow->animal_code }}</td>
                         <td>{{ $cow->entry_date }}</td>

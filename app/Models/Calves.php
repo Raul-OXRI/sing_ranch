@@ -4,26 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class cow extends Model
+class Calves extends Model
 {
-    protected $table = 'cows';
-
+    //
+    protected $table = 'calves';
     protected $fillable = [
         'animal_code',
-        'entry_date',
+        'birth_date',
         'sexo',
         'cod_user',
-        'status'
+        'cod_cow',
+        'status',
     ];
-
 
     public function user()
     {
         return $this->belongsTo(User::class, 'cod_user');
     }
 
-    public function calves()
+    public function cow()
     {
-        return $this->hasMany(Calves::class, 'cod_cow');
+        return $this->belongsTo(cow::class, 'cod_cow');
     }
 }
