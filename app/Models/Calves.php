@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Calves extends Model
 {
@@ -25,5 +26,12 @@ class Calves extends Model
     public function cow()
     {
         return $this->belongsTo(cow::class, 'cod_cow');
+    }
+
+    public function getIsReadyToCalveAttribute(): bool
+    {
+        return Carbon::parse($this->birth_date)
+                     ->addMonths(15)     // 15 meses después
+                     ->lte(now());       // ¿ya llegamos?
     }
 }
