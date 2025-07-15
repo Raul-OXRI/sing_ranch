@@ -1,9 +1,9 @@
 
-<input type="hidden" name="cod_cow" value="{{ $cow->id ?? '' }}">
+<input type="hidden" name="month_code" value="{{ $cow->id ?? '' }}">
 <input type="hidden" name="cod_user" value="{{ $cow->cod_user ?? '' }}">
 <div class="mb-4">
-    <label for="cod_cow" class="text-sm font-medium">Codigo de la vaca:</label>
-    <input type="text" name="cod_cow" class="input input-bordered w-full" value="{{ $cow->animal_code }}" disabled>
+    <label for="month_code" class="text-sm font-medium">Codigo de la vaca:</label>
+    <input type="text" name="month_code" class="input input-bordered w-full" value="{{ $cow->animal_code }}" disabled>
 
 </div>
 <div class="mb-4">
