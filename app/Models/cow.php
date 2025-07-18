@@ -16,32 +16,38 @@ class cow extends Model
         'sexo',
         'month_code',
         'cod_user',
-        'status'
+        'status',
+        'death_date',
+        'sold_date'
     ];
+
+    public function getSoldDateFormattedAttribute()
+    {
+        return $this->sold_date ? Carbon::parse($this->sold_date)->format('Y-m-d') : null;
+    }
+
+    public function getDeathDateFormattedAttribute()
+    {
+        return $this->death_date ? Carbon::parse($this->death_date)->format('Y-m-d') : null;
+    }
+
+    public function getEdadAttribute(): string
+    {
+        if (!$this->birth_date) {
+            return '-';
+        }
+        $fechaNacimiento = Carbon::parse($this->birth_date);
+        $fechaActual = now();
+
+        $diferencia = $fechaNacimiento->diff($fechaActual);
+
+        return "{$diferencia->y} años {$diferencia->m} meses";
+    }
+
 
 
     public function user()
     {
         return $this->belongsTo(User::class, 'cod_user');
-    }
-
-    public function getPuedeAgregarCriaAttribute(): bool
-    {
-        if ($this->sexo !== 'hembra') {
-            return false;
-        }
-
-        $hoy = \Carbon\Carbon::now();
-
-        $nacimientoOK = $this->birth_date
-            ? \Carbon\Carbon::parse($this->birth_date)->diffInMonths($hoy) >= 15
-            : false;
-
-        $ingresoOK = $this->entry_date
-            ? \Carbon\Carbon::parse($this->entry_date)->diffInMonths($hoy) >= 15
-            : false;
-
-        // Si cumple 15 meses desde nacimiento o desde que entró, puede agregar cría
-        return $nacimientoOK || $ingresoOK;
     }
 }

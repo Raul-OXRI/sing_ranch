@@ -25,6 +25,7 @@
                         <th class="text-center">Codigo</th>
                         <th class="text-center">Fecha de entrada</th>
                         <th class="text-center">Fecha de nacimiento</th>
+                        <th class="text-center">Meses desde nacimiento</th>
                         <th class="text-center">Sexo</th>
                         <th class="text-center">Propietario</th>
                         <th class="text-center">Acciones</th>
@@ -36,15 +37,16 @@
                             <td class="text-center">{{ $cow->animal_code }}</td>
                             <td class="text-center">{{ $cow->entry_date ?? '-' }}</td>
                             <td class="text-center">{{ $cow->birth_date ?? '-' }}</td>
+                            <td class="text-center">{{ $cow->edad }}</td>
                             <td class="text-center">{{ $cow->sexo }}</td>
                             <td class="text-center">{{ $cow->user?->name }} {{ $cow->user?->last_name }}</td>
-                            <td class="flex items-center justify-center gap-2">
+                            <td class="flex gap-2">
                                 <div class="flex gap-2">
                                     <form action="{{ route('Cows.switch', $cow) }}" method="POST">
                                         @csrf
                                         @method('PUT')
                                         <select name="status" onchange="this.form.submit()"
-                                            class="btn btn-sm btn-warning">
+                                            class="btn btn-sm btn-neutral">
                                             <option value="1" {{ $cow->status == 1 ? 'selected' : '' }}>Activo
                                             </option>
                                             <option value="2" {{ $cow->status == 2 ? 'selected' : '' }}>vendido
@@ -55,13 +57,13 @@
                                     </form>
                                 </div>
                                 <div class="flex gap-2">
-                                    <button class="btn btn-sm btn-success">
-                                        <i class="fa-regular fa-ballot-check"></i> FincaHoy
+                                    <button class="btn btn-sm btn-accent">
+                                        <i class="fa-regular fa-memo-circle-info"></i> InfoAgro
                                     </button>
                                 </div>
                                 <div class="flex gap-2">
                                     @if ($cow->sexo == 'hembra')
-                                        <button class="btn btn-sm btn-info"
+                                        <button class="btn btn-sm btn-secondary"
                                             onclick="document.getElementById('create_calves_modal_{{ $cow->id }}').showModal()">
                                             <i class="fa-solid fa-user-plus"></i> Agregar Cría
                                         </button>
@@ -79,15 +81,13 @@
                 </tbody>
             </x-app-table>
         </div>
-
         <input type="radio" name="my_tabs_2" class="tab" aria-label="vendidos" />
         <div class="tab-content border-base-300 bg-base-100">
             <x-app-table>
                 <thead>
                     <tr>
                         <th class="text-center">Codigo</th>
-                        <th class="text-center">Fecha de entrada</th>
-                        <th class="text-center">Fecha de nacimiento</th>
+                        <th class="text-center">Fecha de venta</th>
                         <th class="text-center">Sexo</th>
                         <th class="text-center">Propietario</th>
                         <th class="text-center">Acciones</th>
@@ -97,29 +97,27 @@
                     @foreach ($allinactive as $cow)
                         <tr>
                             <td class="text-center">{{ $cow->animal_code }}</td>
-                            <td class="text-center">{{ $cow->entry_date ?? '-'}}</td>
-                            <td class="text-center">{{ $cow->birth_date ?? '-'}}</td>
+                            <td class="text-center">{{ $cow->sold_date_formatted }}</td>
                             <td class="text-center">{{ $cow->sexo }}</td>
-                            <td class="text-center">{{ $cow->user?->name ?? '-' }} {{ $cow->user?->last_name ?? '-' }}</td>
+                            <td class="text-center">{{ $cow->user?->name ?? '-' }} {{ $cow->user?->last_name ?? '-' }}
+                            </td>
                             <td class="flex items-center gap-2">
                                 <div class="flex gap-2">
-                                    <span class="btn btn-sm btn-warning">
+                                    <span class="btn btn-sm btn-neutral">
                                         {{ $cow->status == 2 ? 'Vendido' : 'Muerto' }}
                                     </span>
                                 </div>
                                 <div>
                                     <div class="flex gap-2">
-                                        <button class="btn btn-sm btn-success">
-                                            <i class="fa-regular fa-ballot-check"></i> FincaHoy
+                                        <button class="btn btn-sm btn-accent">
+                                            <i class="fa-regular fa-ballot-check"></i> InfoAgro
                                         </button>
-
                                     </div>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
-
             </x-app-table>
         </div>
         <input type="radio" name="my_tabs_2" class="tab" aria-label="Muertos" />
@@ -128,8 +126,7 @@
                 <thead>
                     <tr>
                         <th class="text-center">Codigo</th>
-                        <th class="text-center">Fecha de entrada</th>
-                        <th class="text-center">Fecha de nacimiento</th>
+                        <th class="text-center">Fecha de muerte</th>
                         <th class="text-center">Sexo</th>
                         <th class="text-center">Propietario</th>
                         <th class="text-center">Acciones</th>
@@ -139,22 +136,20 @@
                     @foreach ($alldead as $cow)
                         <tr>
                             <td class="text-center">{{ $cow->animal_code }}</td>
-                            <td class="text-center">{{ $cow->entry_date ?? '-' }}</td>
-                            <td class="text-center">{{ $cow->birth_date ?? '-'}}</td>
+                            <td class="text-center">{{ $cow->death_date_formatted }}</td>
                             <td class="text-center">{{ $cow->sexo }}</td>
                             <td class="text-center">{{ $cow->user?->name }} {{ $cow->user?->last_name }}</td>
                             <td class="flex items-center gap-2">
                                 <div class="flex gap-2">
-                                    <span class="btn btn-sm btn-warning">
+                                    <span class="btn btn-sm btn-neutral">
                                         {{ $cow->status == 2 ? 'Vendido' : 'Muerto' }}
                                     </span>
                                 </div>
                                 <div>
                                     <div class="flex gap-2">
-                                        <button class="btn btn-sm btn-success">
-                                            <i class="fa-regular fa-ballot-check"></i> FincaHoy
+                                        <button class="btn btn-sm btn-accent">
+                                            <i class="fa-regular fa-ballot-check"></i> InfoAgro
                                         </button>
-
                                     </div>
                                 </div>
                             </td>
@@ -164,6 +159,4 @@
             </x-app-table>
         </div>
     </div>
-
-
 </x-app-layout>

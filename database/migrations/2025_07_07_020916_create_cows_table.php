@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('animal_code')->unique();
             $table->date('entry_date')->nullable();
             $table->date('birth_date')->nullable();
+            $table->date('death_date')->nullable();
+            $table->date('sold_date')->nullable();
             $table->enum('sexo', ['macho', 'hembra'])->default('macho');
             $table->string('status')->default(1);
             $table->string('month_code')->nullable();

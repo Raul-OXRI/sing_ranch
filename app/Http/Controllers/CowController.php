@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\cow;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 
 class CowController extends Controller
 {
@@ -48,7 +49,15 @@ class CowController extends Controller
             'status' => 'required|integer|in:1,2,3',
         ]);
 
-        if ($cow) $cow->update(['status' => $request->status]);
+        if ($cow) {
+            $cow->update(['status' => $request->status]);
+            if ($request->status == 3) {
+                $cow->update(['death_date' => Carbon::today()]);
+            }
+            elseif ($request->status == 2) {
+                $cow->update(['sold_date' => Carbon::today()]);
+            }
+        }
 
         return redirect()->route('Cows.show')->with('success', 'Bovino actualizado con éxito');
     }
