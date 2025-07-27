@@ -10,4 +10,5 @@ Route::group(['prefix' => 'Cows'], function () {
     Route::post('/store', [CowController::class, 'store'])->name('Cows.store');
     Route::put('/{cow}/switch', [CowController::class, 'switch'])->name('Cows.switch');
     Route::post('/calving', [CowController::class, 'storecalving'])->name('Cows.storecalving');
+    Route::get('/cows/{id}', [CowController::class, 'history'])->name('Cows.info');
 });
