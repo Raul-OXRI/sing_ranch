@@ -65,7 +65,7 @@
                                         modalId="info_cow_modal_{{ $cow->id }}" 
                                         title="Información del Bovino" 
                                         formAction="{{ route('Cows.info', $cow->id) }}"
-                                        :form="view('Cows.info-form', ['cow' => $cow])->render()" />
+                                        :form="view('Cows.info-form', ['cow' => $cow, 'historyDetails' => $cow->historyDetails])->render()" />
                                 </div>
                                 <div class="flex gap-2">
                                     @if ($cow->sexo == 'hembra')

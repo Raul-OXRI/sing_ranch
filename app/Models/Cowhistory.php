@@ -33,7 +33,7 @@ class Cowhistory extends Model
         'notes',
         'cow_id'
     ];
-    
+
     public function cow()
     {
         return $this->belongsTo(Cow::class, 'cow_id');
