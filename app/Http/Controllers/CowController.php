@@ -5,25 +5,33 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\cow;
 use App\Models\User;
+use App\Models\Cowhistory;
 use Illuminate\Support\Carbon;
 
 class CowController extends Controller
 {
     public function show()
-    {
-        $users = User::select('id', 'name')->where('status', 1)->get();
-        $allanimals = collect();
-        $cows = cow::where('status', 1)->orderBy('created_at', 'desc')->get();
-        $allanimals = $cows->sortByDesc('created_at');
-        $allinactive = collect();
-        $inactiveCows = cow::where('status', 2)->orderBy('created_at', 'desc')->get();
-        $allinactive = $inactiveCows->sortByDesc('created_at');
-        $alldead = collect();
-        $deadCows = cow::where('status', 3)->orderBy('created_at', 'desc')->get();
-        $alldead = $deadCows->sortByDesc('created_at');
+{
+    $users = User::select('id', 'name', 'last_name')->where('status', 1)->get();
 
-        return view('Cows.all-cows', compact('users', 'allanimals', 'allinactive', 'alldead'));
-    }
+    $allanimals = Cow::with('user')
+        ->where('status', 1)
+        ->latest()
+        ->get();
+
+    $allinactive = Cow::with('user')
+        ->where('status', 2)
+        ->latest()
+        ->get();
+
+    $alldead = Cow::with('user')
+        ->where('status', 3)
+        ->latest()
+        ->get();
+
+    return view('Cows.all-cows', compact('users', 'allanimals', 'allinactive', 'alldead'));
+}
+
 
     public function store(Request $request)
     {
@@ -53,8 +61,7 @@ class CowController extends Controller
             $cow->update(['status' => $request->status]);
             if ($request->status == 3) {
                 $cow->update(['death_date' => Carbon::today()]);
-            }
-            elseif ($request->status == 2) {
+            } elseif ($request->status == 2) {
                 $cow->update(['sold_date' => Carbon::today()]);
             }
         }
@@ -76,5 +83,12 @@ class CowController extends Controller
         $date['status'] = 1;
         cow::create($date);
         return redirect(route('Cows.show'))->with('success', 'Cría creada con éxito');
+    }
+    
+    public function history($id)
+    {
+        $cow = Cow::with('histories')->findOrFail($id);
+
+        return view('Cows.info-form', compact('cow'));
     }
 }

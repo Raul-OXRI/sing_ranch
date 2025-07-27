@@ -57,9 +57,15 @@
                                     </form>
                                 </div>
                                 <div class="flex gap-2">
-                                    <button class="btn btn-sm btn-accent">
+                                    <button class="btn btn-sm btn-accent"
+                                        onclick="document.getElementById('info_cow_modal_{{ $cow->id }}').showModal()">
                                         <i class="fa-regular fa-memo-circle-info"></i> InfoAgro
                                     </button>
+                                    <x-app-modal-info
+                                        modalId="info_cow_modal_{{ $cow->id }}" 
+                                        title="Información del Bovino" 
+                                        formAction="{{ route('Cows.info', $cow->id) }}"
+                                        :form="view('Cows.info-form', ['cow' => $cow])->render()" />
                                 </div>
                                 <div class="flex gap-2">
                                     @if ($cow->sexo == 'hembra')

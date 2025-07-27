@@ -11,6 +11,7 @@ class Cowhistory extends Model
     protected $fillable = [
         'weight',
         'weight_date',
+        'int_weight',
         'vaccine',
         'vaccine_date',
         'deworming',
@@ -32,4 +33,9 @@ class Cowhistory extends Model
         'notes',
         'cow_id'
     ];
+    
+    public function cow()
+    {
+        return $this->belongsTo(Cow::class, 'cow_id');
+    }
 }

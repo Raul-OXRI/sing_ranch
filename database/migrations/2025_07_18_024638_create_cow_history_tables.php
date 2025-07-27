@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->boolean('weight')->default(false)->nullable();
             $table->date('weight_date')->nullable();
+            $table->string('int_weight')->nullable();
             $table->boolean('vaccine')->default(false)->nullable();
             $table->date('vaccine_date')->nullable();
             $table->boolean('deworming')->default(false)->nullable();

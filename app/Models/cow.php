@@ -50,4 +50,12 @@ class cow extends Model
     {
         return $this->belongsTo(User::class, 'cod_user');
     }
+
+    public function histories()
+    {
+        return $this->hasMany(Cowhistory::class);
+    }
+
+
+    
 }
