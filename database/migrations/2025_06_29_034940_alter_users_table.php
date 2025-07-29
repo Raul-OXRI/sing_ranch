@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Models\User;
+use PHPUnit\Framework\Attributes\After;
 
 return new class extends Migration
 {
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->string('last_name')->nullable()->after('name');
             $table->string('username')->unique()->after('last_name');
             $table->integer('status')->default(1)->after('username');
+            $table->string('rol')->after('status');
         });
         User::create([
             'name' => 'Admin',
@@ -25,6 +27,7 @@ return new class extends Migration
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin123'),
             'status' => 1,
+            'rol' => 'admin',
         ]);
     }
 

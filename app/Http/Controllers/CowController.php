@@ -12,9 +12,10 @@ class CowController extends Controller
     public function show()
     {
         $users = User::select('id', 'name', 'last_name')->where('status', 1)->get();
+
         $allanimals = Cow::with('user')
             ->where('status', 1)
-            ->latest()
+            ->orderByRaw('LENGTH(animal_code), animal_code')
             ->get()
             ->map(function ($cow) {
                 $cow->historyDetails = Cow::getLatestHistoryDetails($cow->id);
@@ -23,11 +24,19 @@ class CowController extends Controller
         $allinactive = Cow::with('user')
             ->where('status', 2)
             ->latest()
-            ->get();
+            ->get()
+            ->map(function ($cow) {
+                $cow->historyDetails = Cow::getLatestHistoryDetails($cow->id);
+                return $cow;
+            });
         $alldead = Cow::with('user')
             ->where('status', 3)
             ->latest()
-            ->get();
+            ->get()
+            ->map(function ($cow) {
+                $cow->historyDetails = Cow::getLatestHistoryDetails($cow->id);
+                return $cow;
+            });
         return view('Cows.all-cows', compact('users', 'allanimals', 'allinactive', 'alldead'));
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\cow;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -41,5 +42,12 @@ class AuthController extends Controller
         Auth::logout();
         return redirect(route('Auth.show'))
             ->with('success', 'Has cerrado sesión correctamente.');
+    }
+
+    public function dashboard()
+    {
+        $totalregistro = Cow::count(); 
+        $totalPropietarios = User::where('status', 1)->count();
+        return view('dashboard', compact('totalregistro', 'totalPropietarios'));
     }
 }

@@ -34,9 +34,10 @@ class UserController extends Controller
             'username' => 'required|string|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'rol' => 'required|string',
         ]);
 
-        $date = $request->only(['name', 'last_name', 'username', 'email']);
+        $date = $request->only(['name', 'last_name', 'username', 'email', 'rol']);
         $date['password'] = Hash::make($request->password);
         $date['status'] = 1;
 
@@ -52,9 +53,10 @@ class UserController extends Controller
             'username' => 'required|string|unique:users,username,' . $user->id,
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
+            'rol' => 'required|string',
         ]);
 
-        $date = $request->only(['name', 'last_name', 'username', 'email']);
+        $date = $request->only(['name', 'last_name', 'username', 'email', 'rol']);
         if ($request->filled('password')) {
             $date['password'] = Hash::make($request->password);
         }
@@ -69,6 +71,7 @@ class UserController extends Controller
         $user->save();
         return redirect(route('User.show'))->with('success', 'Usuario eliminado con exito');
     }
+    
     public function restore(User $user)
     {
         $user->status = 1;

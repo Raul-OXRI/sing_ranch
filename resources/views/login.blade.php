@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="silk">
+<html lang="en" data-theme="forest">
 
 <head>
     <meta charset="UTF-8">
@@ -14,8 +14,8 @@
 </head>
 
 <body>
-    <div class="flex items-center justify-center min-h-screen bg-gradient-to-r from-celeste to-white">
-        <div class="bg-neutral p-6 w-full max-w-md rounded-lg shadow">
+    <div class="flex items-center justify-center min-h-screen bg-gradient-to-tl from-neutral to-stone-950">
+        <div class="p-6 w-full max-w-md rounded-lg">
 
             <div class="mt-8">
                 <h2 class="text-2xl font-bold text-white">Login</h2>

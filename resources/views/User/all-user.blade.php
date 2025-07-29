@@ -51,7 +51,7 @@
                                 <form action="{{ route('User.switch', $user->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                    <button type="submit" class="btn btn-sm btn-warning"> <i
+                                    <button type="submit" class="btn btn-sm btn-neutral"> <i
                                             class="fa-solid fa-trash"></i>
                                         Desactivar</button>
                                 </form>
@@ -83,7 +83,7 @@
                                 <form action="{{ route('User.restore', $user->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                    <button type="submit" class="btn btn-sm btn-warning">
+                                    <button type="submit" class="btn btn-sm btn-neutral">
                                         <i class="fa-solid fa-trash-undo"></i>
                                         Restaurar</button>
                                 </form>

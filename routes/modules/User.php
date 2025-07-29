@@ -2,10 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\AuthenticationMiddleware;
-use App\Models\User;
+use App\Http\Middleware\RolMiddleware;
 
-Route::group(['prefix' => 'User'], function () {
+Route::group(['prefix' => 'User', 'middleware' => ['auth', RolMiddleware::class . ':admin']], function () {
     Route::get('/', [UserController::class, 'show'])->name('User.show');
     Route::get('/create', [UserController::class, 'create'])->name('User.create');
     Route::post('/store', [UserController::class, 'store'])->name('User.store');

@@ -11,7 +11,7 @@ class RanchdayController extends Controller
     //
     public function show()
     {
-        $cows = cow::where('status', 1)->orderBy('created_at', 'desc')->get();
+        $cows = cow::where('status', 1)->orderByRaw('LENGTH(animal_code), animal_code')->get();
 
         return view('RanchDay.all-ranchday', compact('cows'));
     }
@@ -43,6 +43,31 @@ class RanchdayController extends Controller
             'notes' => 'nullable|string|max:1000',
             'cow_id' => 'required|exists:cows,id',
         ]);
+
+        $boolean = [
+            'weight',
+            'vaccine',
+            'deworming',
+            'health_check',
+            'feel',
+            'antirabies',
+            'steroids',
+            'antibiotics',
+            'vitamins',
+            'serum'
+        ];
+
+        $atLeastOne = false;
+        foreach ($boolean as $field) {
+            if (isset($data[$field]) && $data[$field]) {
+                $atLeastOne = true;
+                break;
+            }
+        }
+
+        if (!$atLeastOne) {
+            return redirect()->back()->withErrors(['Error' => 'Debe seleccionar al menos un campo de salud.']);
+        }
 
         Cowhistory::create($data);
 

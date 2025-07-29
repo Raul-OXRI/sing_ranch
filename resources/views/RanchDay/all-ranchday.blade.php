@@ -26,7 +26,7 @@
                     <tr>
                         <td class="text-center">{{ $cow->animal_code }}</td>
                         <td class="text-center">{{ $cow->sexo }}</td>
-                        <td class="flex items-center gap-2">
+                        <td class="flex items-center justify-center gap-2">
                             <div class="flex gap-2">
                                 <button class="btn btn-primary btn-sm "
                                     onclick="document.getElementById('create_history_modal_{{ $cow->id }}').showModal()">
