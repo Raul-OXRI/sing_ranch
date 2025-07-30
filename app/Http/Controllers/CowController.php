@@ -6,29 +6,69 @@ use Illuminate\Http\Request;
 use App\Models\cow;
 use App\Models\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CowController extends Controller
 {
     public function show()
     {
         $users = User::select('id', 'name', 'last_name')->where('status', 1)->get();
-        $allanimals = Cow::with('user')
-            ->where('status', 1)
-            ->latest()
-            ->get()
-            ->map(function ($cow) {
-                $cow->historyDetails = Cow::getLatestHistoryDetails($cow->id);
-                return $cow;
-            });
-        $allinactive = Cow::with('user')
-            ->where('status', 2)
-            ->latest()
-            ->get();
-        $alldead = Cow::with('user')
-            ->where('status', 3)
-            ->latest()
-            ->get();
-        return view('Cows.all-cows', compact('users', 'allanimals', 'allinactive', 'alldead'));
+        $user = Auth::user();
+        if ($user->rol === 'admin') {
+            $allanimals = Cow::with('user')
+                ->where('status', 1)
+                ->orderByRaw('LENGTH(animal_code), animal_code')
+                ->get()
+                ->map(function ($cow) {
+                    $cow->historyDetails = Cow::getLatestHistoryDetails($cow->id);
+                    return $cow;
+                });
+            $allinactive = Cow::with('user')
+                ->where('status', 2)
+                ->orderByRaw('LENGTH(animal_code), animal_code')
+                ->get()
+                ->map(function ($cow) {
+                    $cow->historyDetails = Cow::getLatestHistoryDetails($cow->id);
+                    return $cow;
+                });
+            $alldead = Cow::with('user')
+                ->where('status', 3)
+                ->orderByRaw('LENGTH(animal_code), animal_code')
+                ->get()
+                ->map(function ($cow) {
+                    $cow->historyDetails = Cow::getLatestHistoryDetails($cow->id);
+                    return $cow;
+                });
+        } else {
+            $allanimals = Cow::with('user')
+                ->where('status', 1)
+                ->where('cod_user', $user->id)
+                ->orderByRaw('LENGTH(animal_code), animal_code')
+                ->get()
+                ->map(function ($cow) {
+                    $cow->historyDetails = Cow::getLatestHistoryDetails($cow->id);
+                    return $cow;
+                });
+            $allinactive = Cow::with('user')
+                ->where('status', 2)
+                ->where('cod_user', $user->id)
+                ->orderByRaw('LENGTH(animal_code), animal_code')
+                ->get()
+                ->map(function ($cow) {
+                    $cow->historyDetails = Cow::getLatestHistoryDetails($cow->id);
+                    return $cow;
+                });
+            $alldead = Cow::with('user')
+                ->where('status', 3)
+                ->where('cod_user', $user->id)
+                ->orderByRaw('LENGTH(animal_code), animal_code')
+                ->get()
+                ->map(function ($cow) {
+                    $cow->historyDetails = Cow::getLatestHistoryDetails($cow->id);
+                    return $cow;
+                });
+        }
+        return view('Cows.all-cows', compact('users', 'allanimals', 'allinactive', 'alldead', 'user'));
     }
 
     public function store(Request $request)

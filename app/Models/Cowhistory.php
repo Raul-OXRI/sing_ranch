@@ -8,6 +8,7 @@ class Cowhistory extends Model
 {
     //
     protected $table = 'cowhistory';
+    
     protected $fillable = [
         'weight',
         'weight_date',
