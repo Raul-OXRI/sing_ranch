@@ -5,15 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cowhistory;
 use App\Models\cow;
+use Illuminate\Support\Facades\Auth;
 
 class RanchdayController extends Controller
 {
     //
     public function show()
     {
-        $cows = cow::where('status', 1)->orderByRaw('LENGTH(animal_code), animal_code')->get();
+        $user = Auth::user();
 
-        return view('RanchDay.all-ranchday', compact('cows'));
+        if ($user->rol === 'admin') {
+            $cows = cow::where('status', 1)->orderByRaw('LENGTH(animal_code), animal_code')->get();    
+        }
+        else {
+            $cows = cow::where('cod_user', $user->id)->where('status', 1)->orderByRaw('LENGTH(animal_code), animal_code')->get();
+        }
+
+        return view('RanchDay.all-ranchday', compact('cows', 'user'));
     }
 
     public function store(Request $request)

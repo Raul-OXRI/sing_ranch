@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="forest">
+<html lang="en" data-theme="bumblebee">
 
 <head>
     <meta charset="UTF-8">
@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div class="flex items-center justify-center min-h-screen bg-gradient-to-tl from-neutral to-stone-950">
+    <div class="flex items-center justify-center min-h-screen bg-gradient-to-t from-neutral to-neutral-content">
         <div class="p-6 w-full max-w-md rounded-lg">
 
             <div class="mt-8">
@@ -41,7 +41,7 @@
 
                     <div class="mb-4">
                         <button
-                            class="bg-accent font-bold text-black text-sm py-2 px-2 rounded-lg w-full hover:bg-accent-content hover:text-white"
+                            class="bg-accent font-bold text-white text-sm py-2 px-2 rounded-lg w-full hover:bg-secondary-content hover:text-white"
                             type="submit">
                             Login
                         </button>

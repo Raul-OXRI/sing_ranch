@@ -49,4 +49,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function cows()
+    {
+        return $this->hasMany(Cow::class, 'cod_user');
+    }
 }

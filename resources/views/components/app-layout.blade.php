@@ -7,6 +7,11 @@
     <title>Document</title>
     @vite(['resources/css/app.css'])
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.2/css/all.css">
+    <!-- alpine js  -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+    {{-- alpine core --}}
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 </head>
 
 <body class="min-h-screen flex flex-col">
