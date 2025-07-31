@@ -10,8 +10,8 @@
         </div>
         @if (Auth::user()->rol === 'admin')
             <div class="flex gap-3">
-                <button class="btn btn-primary" onclick="document.getElementById('create_cow_modal').showModal()">
-                    <i class="fa-solid fa-user-plus"></i> Crear Bovino
+                <button class="btn bg-orange-700 text-white" onclick="document.getElementById('create_cow_modal').showModal()">
+                    <i class="fa-solid fa-cowbell-circle-plus"></i>Crear Bovino
                 </button>
             </div>
         @endif
@@ -31,7 +31,7 @@
                         <th class="text-center">Codigo</th>
                         <th class="text-center">Fecha de entrada</th>
                         <th class="text-center">Fecha de nacimiento</th>
-                        <th class="text-center">Meses desde nacimiento</th>
+                        <th class="text-center">Tiempo de vida</th>
                         <th class="text-center">Sexo</th>
                         <th class="text-center">Propietario</th>
                         <th class="text-center">Acciones</th>
@@ -46,7 +46,7 @@
                             <td class="text-center">{{ $cow->edad }}</td>
                             <td class="text-center">{{ $cow->sexo }}</td>
                             <td class="text-center">{{ $cow->user?->name }} {{ $cow->user?->last_name }}</td>
-                            <td class="flex gap-2">
+                            <td class="flex gap-1">
                                 @if (Auth::user()->rol === 'admin')
                                     <div class="flex gap-2">
                                         <form action="{{ route('Cows.switch', $cow) }}" method="POST">
@@ -84,9 +84,9 @@
                                 @if (Auth::user()->rol === 'admin')
                                     <div class="flex gap-2">
                                         @if ($cow->sexo == 'hembra')
-                                            <button class="btn btn-sm btn-secondary"
+                                            <button class="btn btn-sm bg-orange-700 text-white"
                                                 onclick="document.getElementById('create_calves_modal_{{ $cow->id }}').showModal()">
-                                                <i class="fa-solid fa-user-plus"></i> Agregar Cría
+                                                <i class="fa-solid fa-cowbell-circle-plus"></i>Agregar Cría
                                             </button>
                                             <x-app-modal-create 
                                                 modalId="create_calves_modal_{{ $cow->id }}"

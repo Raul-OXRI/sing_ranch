@@ -67,3 +67,16 @@ composer run dev
 aqui esta la plantilla de la base de datos del proyecto 
 
 -[BD](https://lucid.app/lucidchart/0236cc94-9842-42d5-9c8e-404b5ce2722e/edit?viewport_loc=287%2C140%2C1109%2C560%2C0_0&invitationId=inv_4ceba973-af22-4596-b00a-5e768a8600c1)
+
+# REPORTERIA
+Librerias de exportar EXCEL
+
+-[documentación](https://docs.laravel-excel.com/3.1/getting-started/)
+
+```bash
+composer require maatwebsite/excel
+```
+
+-[video de excel](https://www.youtube.com/watch?v=LchSPSKx2Gw)
+
+

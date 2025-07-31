@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
     //
-
     public function show()
     {
         $users = User::where('status', 1)
@@ -77,5 +79,10 @@ class UserController extends Controller
         $user->status = 1;
         $user->save();
         return redirect(route('User.show'))->with('success', 'Usuario restaurado con exito');
+    }
+
+    public function xlsxUser()
+    {
+        return Excel::download(new UsersExport, 'usuarios.xlsx');
     }
 }
