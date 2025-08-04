@@ -8,13 +8,24 @@
                 <h1 class="text-2xl md:text-3xl font-bold text-secondary">Gestión de Bovinos</h1>
             </div>
         </div>
-        @if (Auth::user()->rol === 'admin')
-            <div class="flex gap-3">
-                <button class="btn bg-orange-700 text-white" onclick="document.getElementById('create_cow_modal').showModal()">
+        <div class="flex gap-3">
+
+            <div class="dropdown dropdown-left dropdown-center">
+                <div tabindex="0" role="button" class="btn btn-neutral"><i class="fa-solid fa-file-excel"></i> Exportar</div>
+                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                    <li><a href="{{ route('Cows.xlsx', ['status' => 1]) }}">Activos</a></li>
+                    <li><a href="{{ route('Cows.xlsx', ['status' => 2]) }}">Vendidos</a></li>
+                    <li><a href="{{ route('Cows.xlsx', ['status' => 3]) }}">Muertos</a></li>
+                </ul>
+            </div>
+            
+
+            @if (Auth::user()->rol === 'admin')
+                <button class="btn btn-secondary  text-white" onclick="document.getElementById('create_cow_modal').showModal()">
                     <i class="fa-solid fa-cowbell-circle-plus"></i>Crear Bovino
                 </button>
-            </div>
-        @endif
+            @endif
+        </div>
         
     </div>
     <x-app-modal-create 
@@ -84,7 +95,7 @@
                                 @if (Auth::user()->rol === 'admin')
                                     <div class="flex gap-2">
                                         @if ($cow->sexo == 'hembra')
-                                            <button class="btn btn-sm bg-orange-700 text-white"
+                                            <button class="btn btn-sm btn-secondary text-white"
                                                 onclick="document.getElementById('create_calves_modal_{{ $cow->id }}').showModal()">
                                                 <i class="fa-solid fa-cowbell-circle-plus"></i>Agregar Cría
                                             </button>

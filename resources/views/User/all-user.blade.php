@@ -14,7 +14,7 @@
             <a href="{{ route('User.xlsx') }}" class="btn btn-neutral">
                 <i class="fa-solid fa-file-excel"></i> Exportar
             </a>
-            <button class="btn bg-orange-700 text-white" onclick="document.getElementById('create_user_modal').showModal()">
+            <button class="btn btn-secondary text-white" onclick="document.getElementById('create_user_modal').showModal()">
                 <i class="fa-solid fa-user-plus"></i> Crear Usuario
             </button>
         </div>

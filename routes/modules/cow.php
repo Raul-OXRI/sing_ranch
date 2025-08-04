@@ -10,4 +10,5 @@ Route::group(['prefix' => 'Cows', 'middleware' => ['auth', RolMiddleware::class 
     Route::put('/{cow}/switch', [CowController::class, 'switch'])->name('Cows.switch');
     Route::post('/calving', [CowController::class, 'storecalving'])->name('Cows.storecalving');
     Route::get('/cows/{id}', [CowController::class, 'history'])->name('Cows.info');
+    Route::get('/xlsx/{status}', [CowController::class, 'xlxsCow'])->name('Cows.xlsx');
 });
