@@ -11,4 +11,5 @@ Route::group(['prefix' => 'User', 'middleware' => ['auth', RolMiddleware::class 
     Route::put('/edit/{user}', [UserController::class, 'update'])->name('User.update');
     Route::put('/delete/{user}', [UserController::class, 'switch'])->name('User.switch');
     Route::put('/restore/{user}', [UserController::class, 'restore'])->name('User.restore');
+    Route::get('/xlsx', [UserController::class, 'xlsxUser'])->name('User.xlsx');
 });

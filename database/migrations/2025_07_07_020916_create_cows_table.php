@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('cows', function (Blueprint $table) {
             $table->id();
             $table->string('animal_code')->unique();
+            $table->string('status')->default(1);
             $table->date('entry_date')->nullable();
             $table->date('birth_date')->nullable();
             $table->date('death_date')->nullable();
             $table->date('sold_date')->nullable();
             $table->enum('sexo', ['macho', 'hembra'])->default('macho');
-            $table->string('status')->default(1);
             $table->string('month_code')->nullable();
             $table->foreignId('cod_user')->references('id')->on('users')->onDelete('no action');
             $table->timestamps();

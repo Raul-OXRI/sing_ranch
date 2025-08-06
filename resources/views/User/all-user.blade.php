@@ -11,7 +11,10 @@
             </div>
         </div>
         <div class="flex gap-3">
-            <button class="btn btn-primary" onclick="document.getElementById('create_user_modal').showModal()">
+            <a href="{{ route('User.xlsx') }}" class="btn btn-neutral">
+                <i class="fa-solid fa-file-excel"></i> Exportar
+            </a>
+            <button class="btn btn-secondary text-white" onclick="document.getElementById('create_user_modal').showModal()">
                 <i class="fa-solid fa-user-plus"></i> Crear Usuario
             </button>
         </div>
