@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\cow;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
@@ -26,20 +27,36 @@ class CowsExport implements FromView, ShouldAutoSize
 
     public function view(): View
     {
-        $cow = collect();
+        $user = Auth::user();
+        if ($user->rol === 'admin') {
+            $cow = collect();
 
-        switch ($this->status) {
-            case 1:
-                $cows = Cow::with('user')->where('status', 1)->get();
-                break;
-            case 2:
-                $cows = Cow::with('user')->where('status', 3)->get();
-                break;
-            case 3:
-                $cows = Cow::with('user')->where('status', 2)->get();
-                break;
+            switch ($this->status) {
+                case 1:
+                    $cows = Cow::with('user')->where('status', 1)->get();
+                    break;
+                case 2:
+                    $cows = Cow::with('user')->where('status', 3)->get();
+                    break;
+                case 3:
+                    $cows = Cow::with('user')->where('status', 2)->get();
+                    break;
+            }
+        } else {
+            $cow = collect();
+
+            switch ($this->status) {
+                case 1:
+                    $cows = Cow::with('user')->where('cod_user', $user->id)->where('status', 1)->get();
+                    break;
+                case 2:
+                    $cows = Cow::with('user')->where('cod_user', $user->id)->where('status', 3)->get();
+                    break;
+                case 3:
+                    $cows = Cow::with('user')->where('cod_user', $user->id)->where('status', 2)->get();
+                    break;
+            }
         }
-        
 
         return view('Cows.from-excel', compact('cows'));
     }

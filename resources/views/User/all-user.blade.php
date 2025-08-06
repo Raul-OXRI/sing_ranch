@@ -43,7 +43,7 @@
                         <td>{{ $user->email }}</td>
                         <td class="flex items-center gap-2">
                             <div class="flex gap-2">
-                                <button class="btn btn-sm btn-secondary"
+                                <button class="btn btn-sm btn-secondary text-white"
                                     onclick="document.getElementById('edit_user_modal_{{ $user->id }}').showModal()">
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
                                 </button>

@@ -10,7 +10,8 @@
         </div>
         <div class="flex gap-3">
 
-            <div class="dropdown dropdown-left dropdown-center">
+            <div class="dropdown dropdown-center lg:dropdown-end ">
+
                 <div tabindex="0" role="button" class="btn btn-neutral"><i class="fa-solid fa-file-excel"></i> Exportar</div>
                 <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
                     <li><a href="{{ route('Cows.xlsx', ['status' => 1]) }}">Activos</a></li>
@@ -139,7 +140,7 @@
                             <td class="flex items-center gap-2">
                                 <div class="flex gap-2">
                                     <span class="btn btn-sm btn-neutral">
-                                        {{ $cow->status == 2 ? 'Vendido' : 'Muerto' }}
+                                        {{ $cow->status == 3 ? 'Vendido' : 'Muerto' }}
                                     </span>
                                 </div>
                                 <div class="flex gap-2">
@@ -181,7 +182,7 @@
                             <td class="flex items-center gap-2">
                                 <div class="flex gap-2">
                                     <span class="btn btn-sm btn-neutral">
-                                        {{ $cow->status == 3 ? 'Muerto' : 'Vendido' }}
+                                        {{ $cow->status == 2 ? 'Muerto' : 'Vendido' }}
                                     </span>
                                 </div>
                                 <div class="flex gap-2">
