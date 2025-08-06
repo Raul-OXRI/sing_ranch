@@ -17,7 +17,7 @@ class CowController extends Controller
         $users = User::select('id', 'name', 'last_name')->where('status', 1)->get();
         $user = Auth::user();
         if ($user->rol === 'admin') {
-            $allanimals = Cow::with('user')
+            $all_active = Cow::with('user')
                 ->where('status', 1)
                 ->orderByRaw('LENGTH(animal_code), animal_code')
                 ->get()
@@ -25,7 +25,7 @@ class CowController extends Controller
                     $cow->historyDetails = Cow::getLatestHistoryDetails($cow->id);
                     return $cow;
                 });
-            $allinactive = Cow::with('user')
+            $all_dead = Cow::with('user')
                 ->where('status', 2)
                 ->orderByRaw('LENGTH(animal_code), animal_code')
                 ->get()
@@ -33,7 +33,7 @@ class CowController extends Controller
                     $cow->historyDetails = Cow::getLatestHistoryDetails($cow->id);
                     return $cow;
                 });
-            $alldead = Cow::with('user')
+            $all_inactive = Cow::with('user')
                 ->where('status', 3)
                 ->orderByRaw('LENGTH(animal_code), animal_code')
                 ->get()
@@ -42,7 +42,7 @@ class CowController extends Controller
                     return $cow;
                 });
         } else {
-            $allanimals = Cow::with('user')
+            $all_active = Cow::with('user')
                 ->where('status', 1)
                 ->where('cod_user', $user->id)
                 ->orderByRaw('LENGTH(animal_code), animal_code')
@@ -51,7 +51,7 @@ class CowController extends Controller
                     $cow->historyDetails = Cow::getLatestHistoryDetails($cow->id);
                     return $cow;
                 });
-            $allinactive = Cow::with('user')
+            $all_dead = Cow::with('user')
                 ->where('status', 2)
                 ->where('cod_user', $user->id)
                 ->orderByRaw('LENGTH(animal_code), animal_code')
@@ -60,7 +60,7 @@ class CowController extends Controller
                     $cow->historyDetails = Cow::getLatestHistoryDetails($cow->id);
                     return $cow;
                 });
-            $alldead = Cow::with('user')
+            $all_inactive = Cow::with('user')
                 ->where('status', 3)
                 ->where('cod_user', $user->id)
                 ->orderByRaw('LENGTH(animal_code), animal_code')
@@ -70,7 +70,7 @@ class CowController extends Controller
                     return $cow;
                 });
         }
-        return view('Cows.all-cows', compact('users', 'allanimals', 'allinactive', 'alldead', 'user'));
+        return view('Cows.all-cows', compact('users', 'all_active', 'all_inactive', 'all_dead', 'user'));
     }
 
     public function store(Request $request)
@@ -96,9 +96,9 @@ class CowController extends Controller
         if ($cow) {
             $cow->update(['status' => $request->status]);
             if ($request->status == 3) {
-                $cow->update(['death_date' => Carbon::today()]);
+                $cow->update(['sold_date' => Carbon::date()]);
             } elseif ($request->status == 2) {
-                $cow->update(['sold_date' => Carbon::today()]);
+                $cow->update(['death_date' => Carbon::date()]);
             }
         }
         return redirect()->route('Cows.show')->with('success', 'Bovino actualizado con éxito');

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\cow;
 
 class Cowhistory extends Model
 {
@@ -37,6 +38,6 @@ class Cowhistory extends Model
 
     public function cow()
     {
-        return $this->belongsTo(Cow::class, 'cow_id');
+        return $this->belongsTo(cow::class, 'cow_id');
     }
 }

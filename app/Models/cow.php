@@ -72,4 +72,6 @@ class cow extends Model
             ->where('cows.id', $cowId)
             ->first();
     }
+
+    
 }

@@ -49,7 +49,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($allanimals as $cow)
+                    @foreach ($all_active as $cow)
                         <tr class="text-center">
                             <td class="text-center">{{ $cow->animal_code }}</td>
                             <td class="text-center">{{ $cow->entry_date ?? '-' }}</td>
@@ -67,9 +67,9 @@
                                                 class="btn btn-sm btn-neutral">
                                                 <option value="1" {{ $cow->status == 1 ? 'selected' : '' }}>Activo
                                                 </option>
-                                                <option value="2" {{ $cow->status == 2 ? 'selected' : '' }}>vendido
+                                                <option value="3" {{ $cow->status == 2 ? 'selected' : '' }}>vendido
                                                 </option>
-                                                <option value="3" {{ $cow->status == 3 ? 'selected' : '' }}>Muerto
+                                                <option value="2" {{ $cow->status == 3 ? 'selected' : '' }}>Muerto
                                                 </option>
                                             </select>
                                         </form>
@@ -129,7 +129,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($allinactive as $cow)
+                    @foreach ($all_inactive as $cow)
                         <tr>
                             <td class="text-center">{{ $cow->animal_code }}</td>
                             <td class="text-center">{{ $cow->sold_date_formatted }}</td>
@@ -172,7 +172,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($alldead as $cow)
+                    @foreach ($all_dead as $cow)
                         <tr>
                             <td class="text-center">{{ $cow->animal_code }}</td>
                             <td class="text-center">{{ $cow->death_date_formatted }}</td>

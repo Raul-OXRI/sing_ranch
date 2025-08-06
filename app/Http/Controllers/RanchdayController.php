@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cowhistory;
 use App\Models\cow;
+use App\Exports\CowhistoryExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 
 class RanchdayController extends Controller
@@ -80,5 +82,10 @@ class RanchdayController extends Controller
         Cowhistory::create($data);
 
         return redirect()->back()->with('success', 'Registro creado exitosamente.');
+    }
+
+    public function xlsxcowhistory($id)
+    {
+        return Excel::download(new CowhistoryExport($id), 'historial_ganado.xlsx');
     }
 }

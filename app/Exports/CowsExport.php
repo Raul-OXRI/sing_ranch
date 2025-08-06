@@ -3,9 +3,9 @@
 namespace App\Exports;
 
 use App\Models\cow;
+use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 class CowsExport implements FromView, ShouldAutoSize
@@ -30,15 +30,16 @@ class CowsExport implements FromView, ShouldAutoSize
 
         switch ($this->status) {
             case 1:
-                $cows = Cow::where('status', 1)->get();
+                $cows = Cow::with('user')->where('status', 1)->get();
                 break;
             case 2:
-                $cows = Cow::where('status', 2)->get();
+                $cows = Cow::with('user')->where('status', 3)->get();
                 break;
             case 3:
-                $cows = Cow::where('status', 3)->get();
+                $cows = Cow::with('user')->where('status', 2)->get();
                 break;
         }
+        
 
         return view('Cows.from-excel', compact('cows'));
     }
