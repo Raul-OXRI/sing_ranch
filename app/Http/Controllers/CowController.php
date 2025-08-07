@@ -96,9 +96,10 @@ class CowController extends Controller
         if ($cow) {
             $cow->update(['status' => $request->status]);
             if ($request->status == 3) {
-                $cow->update(['sold_date' => Carbon::date()]);
+                $cow->update(['sold_date' => Carbon::today()->toDateString()]);
+
             } elseif ($request->status == 2) {
-                $cow->update(['death_date' => Carbon::date()]);
+                $cow->update(['death_date' => Carbon::today()->toDateString()]);
             }
         }
         return redirect()->route('Cows.show')->with('success', 'Bovino actualizado con éxito');
