@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Models\Cowhistory;
 
 class cow extends Model
 {
@@ -73,5 +74,8 @@ class cow extends Model
             ->first();
     }
 
+    public function cowhistories(){
+        return $this->hasMany(CowHistory::class, 'cow_id');
+    }
     
 }

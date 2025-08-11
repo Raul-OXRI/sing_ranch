@@ -15,6 +15,7 @@
                 <tr>
                     <th class="text-center">No. animal</th>
                     <th class="text-center">Sexo</th>
+                    <th class="text-center">Peso crítico</th>
                     <th class="text-center">Acciones</th>
                 </tr>
             </thead>
@@ -23,18 +24,47 @@
                     <tr>
                         <td class="text-center">{{ $cow->animal_code }}</td>
                         <td class="text-center">{{ $cow->sexo }}</td>
+                        <td class="text-center">
+
+                            @switch($cow->weight_status)
+                                @case('up')
+                                    <span class="text-green-600 font-semibold">
+                                        {{ $cow->last_weight }} LB <i class="fa-solid fa-arrow-up"></i>
+                                    </span>
+                                @break
+
+                                @case('down')
+                                    <span class="text-red-600 font-semibold">
+                                        {{ $cow->last_weight }} LB <i class="fa-solid fa-arrow-down"></i>
+                                    </span>
+                                @break
+
+                                @case('equal')
+                                    <span class="text-yellow-600 font-semibold">
+                                        {{ $cow->last_weight }} LB <i class="fa-solid fa-arrow-right"></i>
+                                    </span>
+                                @break
+
+                                @case('only_one')
+                                    <span class="text-green-600 font-semibold">
+                                        {{ $cow->last_weight }} LB <i class="fa-solid fa-arrow-up"></i>
+                                    </span>
+                                @break
+
+                                @default
+                                    <span class="text-gray-600 font-semibold">Sin datos</span>
+                            @endswitch
+                        </td>
                         <td class="flex items-center justify-center gap-2">
                             <div class="flex gap-2">
                                 <button class="btn btn-secondary btn-sm text-white"
                                     onclick="document.getElementById('create_history_modal_{{ $cow->id }}').showModal()">
                                     <i class="fa-solid fa-syringe"></i> Registrar
                                 </button>
-                                <x-app-modal-create
-                                    modalId="create_history_modal_{{ $cow->id }}" 
-                                    title="Registro Médico" 
-                                    formAction="{{ route('Ranchday.store') }}"
-                                    :form="view('RanchDay.pharmat-form',[
-                                        'cow' => $cow
+                                <x-app-modal-create modalId="create_history_modal_{{ $cow->id }}"
+                                    title="Registro Médico" formAction="{{ route('Ranchday.store') }}"
+                                    :form="view('RanchDay.pharmat-form', [
+                                        'cow' => $cow,
                                     ])->render()" />
                             </div>
                             <div class="flex gap-2">
@@ -43,7 +73,6 @@
                                 </a>
                             </div>
                         </td>
-                        
                 @endforeach
             </tbody>
         </x-app-table>

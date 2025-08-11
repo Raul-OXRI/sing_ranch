@@ -17,10 +17,41 @@ class RanchdayController extends Controller
         $user = Auth::user();
 
         if ($user->rol === 'admin') {
-            $cows = cow::where('status', 1)->orderByRaw('LENGTH(animal_code), animal_code')->get();    
+            $cows =  cow::with(['cowhistories' => function ($query) {
+                $query->whereNotNull('weight')->orderBy('weight_date', 'desc');
+            }])
+                ->where('status', 1)
+                ->orderByRaw('LENGTH(animal_code), animal_code')
+                ->get();
+        } else {
+            $cows = cow::with(['cowhistories' => function ($query) {
+                $query->whereNotNull('weight')->orderBy('weight_date', 'desc');
+            }])
+                ->where('cod_user', $user->id)
+                ->where('status', 1)
+                ->orderByRaw('LENGTH(animal_code), animal_code')
+                ->get();
         }
-        else {
-            $cows = cow::where('cod_user', $user->id)->where('status', 1)->orderByRaw('LENGTH(animal_code), animal_code')->get();
+
+        foreach ($cows as $cow) {
+            $weights = $cow->cowhistories()
+                ->whereNotNull('weight')
+                ->orderBy('weight_date', 'desc')
+                ->limit(2)
+                ->pluck('weight');
+
+            $lastWeight = $weights[0] ?? null;
+            $previousWeight = $weights[1] ?? null;
+
+            if ($lastWeight && $previousWeight) {
+                $cow->weight_status = $lastWeight > $previousWeight ? 'up' : ($lastWeight < $previousWeight ? 'down' : 'equal');
+            } elseif ($lastWeight) {
+                $cow->weight_status = 'only_one';
+            } else {
+                $cow->weight_status = 'none';
+            }
+
+            $cow->last_weight = $lastWeight;
         }
 
         return view('RanchDay.all-ranchday', compact('cows', 'user'));
