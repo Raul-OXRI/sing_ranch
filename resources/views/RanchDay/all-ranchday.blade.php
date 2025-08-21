@@ -72,6 +72,10 @@
                                     <i class="fa-solid fa-file-excel"></i> Exportar
                                 </a>
                             </div>
+                            <div class="flex gap-2">
+                                <a href="{{ route('Ranchday.pdf', $cow->id) }}" class="btn btn-sm btn-accent"><i class="fa-solid fa-file-pdf"></i>
+                                Pesaje</a>
+                            </div>
                         </td>
                 @endforeach
             </tbody>
