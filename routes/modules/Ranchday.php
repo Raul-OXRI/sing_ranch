@@ -8,4 +8,5 @@ Route::group(['prefix' => 'Ranchday','middleware' => ['auth', RolMiddleware::cla
     Route::get('/', [RanchdayController::class, 'show'])->name('Ranchday.show');
     Route::post('/store', [RanchdayController::class, 'store'])->name('Ranchday.store');
     Route::get('/xlsx/{id}', [RanchdayController::class, 'xlsxcowhistory'])->name('Ranchday.xlsx');
+    Route::get('/pdf/{id}', [RanchdayController::class, 'pdfcowhistory'])->name('Ranchday.pdf');
 });
