@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\Cowhistory;
+use App\Models\User;
 
 class cow extends Model
 {

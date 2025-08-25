@@ -34,6 +34,7 @@
             <option value="" disabled selected>Seleccione un rol</option>
             <option value="admin" {{ (old('rol', $user->rol ?? '') == 'admin') ? 'selected' : '' }}>Administrador</option>
             <option value="propietario" {{ (old('rol', $user->rol ?? '') == 'propietario') ? 'selected' : '' }}>Propietario</option>
+            <option value="comprador" {{ (old('rol', $user->rol ?? '') == 'comprador') ? 'selected' : '' }}>Comprador</option>
         </select>
     </div>
 

@@ -34,6 +34,7 @@
                         <li><a href="{{ route('User.show') }}" class="text text-sm sm:text-xl"><i class="fa-solid fa-user"></i> Usuarios</a></li>
                         <li><a href="{{ route('Cows.show') }}" class="text text-sm sm:text-xl"><i class="fa-solid fa-skull-cow"></i> Bovinos</a></li>
                         <li><a href="{{ route('Ranchday.show') }}" class="text text-sm sm:text-xl"><i class="fa-solid fa-file-contract"></i> RanchDay</a></li>
+                        <li><a href="{{ route('Seller.show') }}" class="text text-sm sm:text-xl"><i class="fa-solid fa-money-check-dollar-pen"></i> Venta</a></li>
                     </ul>
                 </div>
             </div>

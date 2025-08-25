@@ -68,8 +68,6 @@
                                                 class="btn btn-sm btn-neutral">
                                                 <option value="1" {{ $cow->status == 1 ? 'selected' : '' }}>Activo
                                                 </option>
-                                                <option value="3" {{ $cow->status == 2 ? 'selected' : '' }}>vendido
-                                                </option>
                                                 <option value="2" {{ $cow->status == 3 ? 'selected' : '' }}>Muerto
                                                 </option>
                                             </select>
