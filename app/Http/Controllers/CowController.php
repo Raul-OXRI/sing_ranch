@@ -14,7 +14,7 @@ class CowController extends Controller
 {
     public function show()
     {
-        $users = User::select('id', 'name', 'last_name')->where('status', 1)->get();
+        $users = User::select('id', 'name', 'last_name')->where('status', 1)->whereIn('rol', ['admin', 'propietario'])->get();
         $user = Auth::user();
         if ($user->rol === 'admin') {
             $all_active = Cow::with('user')
@@ -95,10 +95,7 @@ class CowController extends Controller
         ]);
         if ($cow) {
             $cow->update(['status' => $request->status]);
-            if ($request->status == 3) {
-                $cow->update(['sold_date' => Carbon::today()->toDateString()]);
-
-            } elseif ($request->status == 2) {
+            if ($request->status == 2) {
                 $cow->update(['death_date' => Carbon::today()->toDateString()]);
             }
         }
